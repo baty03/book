@@ -28,6 +28,11 @@ class Book(models.Model):
     quantity = models.IntegerField(verbose_name='Quantity')
     year = models.IntegerField(verbose_name='Year')
     date = models.DateField(verbose_name='Date')
+    history = models.TextField(
+    verbose_name='История',
+    blank=True,
+    default=''
+)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.PROTECT)
 
     def __str__(self):
