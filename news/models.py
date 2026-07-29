@@ -14,6 +14,8 @@ class Category(models.Model):
         return self.title
 
 class Book(models.Model):
+    objects = None
+
     class Meta:
         verbose_name = 'Book'
         verbose_name_plural = 'Books'
