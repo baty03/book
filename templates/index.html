@@ -3,21 +3,49 @@
 {% block content %}
 
 <div class="books">
-{% for book in books %}
+
+{% for book in page_obj %}
 <div class="card text-center">
-  <div class="card-header">
-    <img style="width: 200px;" src="{{book.image.url}}" alt="">
-    <h1>{{book.title}}</h1>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">{{book.description}}</h5>
-    <p class="card-text">{{book.date}}</p>
-    <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">Подробнее</a>
-  </div>
-  <div class="card-footer text-body-secondary">
-    Количество на скаде: {{book.quantity}}
-  </div>
+    <div class="card-header">
+        <img style="width: 200px;" src="{{ book.image.url }}" alt="">
+    </div>
+
+    <div class="card-body">
+        <h2 class="card-name">{{ book.name }}</h2>
+        <h5 class="card-title">{{ book.description }}</h5>
+        <p class="card-text">{{ book.date }}</p>
+
+        <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">
+            Подробнее
+        </a>
+    </div>
+
+    <div class="card-footer text-body-secondary">
+        Количество на складе: {{ book.quantity }}
+    </div>
 </div>
 {% endfor %}
+
 </div>
+
+<div class="text-center my-4">
+
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary">
+            ← Назад
+        </a>
+    {% endif %}
+
+    <span class="mx-3">
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">
+            Вперед →
+        </a>
+    {% endif %}
+
+</div>
+
 {% endblock content %}
